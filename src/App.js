@@ -23,6 +23,18 @@ const xByTime = (nowDateStr, beginDateStr, endDateStr) => {
   return 100 * ((now - begin) / (end - begin));
 }
 
+const DegreeAxisLine = ({degrees, color, strokeWidth}) => {
+  const height = heightByDegrees(degrees);
+  return (
+    <line 
+      stroke={color}
+      strokeWidth={strokeWidth}
+      x1="0"   y1={height}
+      x2="100" y2={height}
+    />
+  )
+}
+
 const App = () => {
   const hourlyWeatherData = useWeatherData();
   const {windowHeight} = useWindowDimensions();
