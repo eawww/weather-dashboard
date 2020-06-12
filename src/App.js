@@ -31,6 +31,7 @@ const App = () => {
           x2="100" y2="100"
           stroke="red"
           strokeWidth="1"
+          vectorEffect="non-scaling-stroke"
         />
       </svg>
     </div>
