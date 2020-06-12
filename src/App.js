@@ -19,6 +19,12 @@ const App = () => {
         width="100%"
         className="svgCanvas"
         viewBox="0 0 100 100"
+        // the following 2 props are important because they allow us to position things
+        // in terms of percentages of height/width of the svg canvas
+        // This won't work for every application but I'm doing it here
+        // for simplicity
+        viewBox="0 0 100 100"
+        preserveAspectRatio="none"
       >
         <line 
           x1="0" y1="0"
