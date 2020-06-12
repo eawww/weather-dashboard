@@ -1,9 +1,9 @@
 import {useState, useEffect} from 'react';
 
 const useWindowDimensions = () => {
-  const [viewHeight, setViewHeight] = useState(0);
-  const [viewWidth, setViewWidth] = useState(0);
-  const [center, setCenter] = useState({x: 0, y: 0});
+  const [windowHeight, setViewHeight] = useState(0);
+  const [windowWidth, setViewWidth] = useState(0);
+  const [windowCenter, setCenter] = useState({x: 0, y: 0});
   useEffect(() => {
     const setWindowDimensions = () => {
       setViewHeight(window.innerHeight);
@@ -13,7 +13,7 @@ const useWindowDimensions = () => {
     window.onresize = setWindowDimensions;
     setWindowDimensions()
   }, []);
-  return [center, viewHeight, viewWidth];
+  return {windowCenter, windowHeight, windowWidth};
 }
 
 export default useWindowDimensions;
