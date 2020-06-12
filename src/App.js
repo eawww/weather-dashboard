@@ -5,6 +5,23 @@ import './App.css';
 import useWeatherData from './hooks/useWeatherData';
 import useWindowDimensions from './hooks/useWindowDimensions';
 
+// To plot our temperature data, we'll need to define some things:
+// Constants
+const MAX_TEMP = 120; // Let's hope the temp doesn't go out of this range
+const MIN_TEMP = -20;
+const TEMP_RANGE = MAX_TEMP - MIN_TEMP;
+
+// And some helper functions for calculating positions
+const heightByDegrees = (degrees) => 100 - (100 * (degrees - MIN_TEMP) / TEMP_RANGE);
+// Returns a value 0-100 representing the position of a date between two other dates
+const xByTime = (nowDateStr, beginDateStr, endDateStr) => {
+  // We really want the raw values of these times so we just grab
+  // The good ol' simple "milliseconds since Midnight Jan 1, 1970"
+  const now = new Date(nowDateStr).valueOf(); 
+  const begin = new Date(beginDateStr).valueOf();
+  const end = new Date(endDateStr).valueOf();
+  return 100 * ((now - begin) / (end - begin));
+}
 
 const App = () => {
   const hourlyWeatherData = useWeatherData();
