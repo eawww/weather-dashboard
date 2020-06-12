@@ -30,7 +30,7 @@ const App = () => {
           x1="0" y1="0"
           x2="100" y2="100"
           stroke="red"
-          strokeWidth="1"
+          strokeWidth={windowHeight * 0.01}
           vectorEffect="non-scaling-stroke"
         />
       </svg>
