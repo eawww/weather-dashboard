@@ -38,6 +38,7 @@ const useWeatherData = () => {
     });
   }
   fetchData();
+  return hourlyWeatherData;
 }
 
 export default useWeatherData;
