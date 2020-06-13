@@ -121,6 +121,15 @@ const App = () => {
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
+        <defs>
+          <linearGradient
+            id="tempGradient"
+            gradientTransform="rotate(90)"
+          >
+            <stop offset="0%" stopColor="red"/>
+            <stop offset="100%" stopColor="blue"/>
+          </linearGradient>
+        </defs>
         <rect
           id="background"
           height="100" width="100"
@@ -189,6 +198,11 @@ const App = () => {
             values={hourlyWeatherData.map(hr => heightByDegrees(hr.temp.value))}
             stroke="red"
             strokeWidth={windowHeight * 0.01}
+          />
+          <rect
+            height="100"
+            width="100"
+            fill="url(#tempGradient)"
           />
         </g>
         <VerticalLine
