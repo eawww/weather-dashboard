@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 
 // Hooks!
@@ -63,11 +63,15 @@ const VerticalLine = ({position, ...props}) => (
 const App = () => {
   const hourlyWeatherData = useWeatherData();
   const {windowHeight} = useWindowDimensions();
+  const [selectedHourIndex, setSelectedHourIndex] = useState(0);
+  console.log(selectedHourIndex)
 
   const handleMouseMove = (event) => {
     const xPct = event.clientX / event.target.ownerSVGElement.clientWidth;
     const closestDataIndex = Math.floor(xPct * hourlyWeatherData.length);
-    console.log(closestDataIndex)
+    if(closestDataIndex !== selectedHourIndex){
+      setSelectedHourIndex(closestDataIndex);
+    }
   }
 
   const beginTime = hourlyWeatherData[0] && hourlyWeatherData[0].observation_time.value;
