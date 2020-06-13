@@ -23,6 +23,21 @@ const xByTime = (nowDateStr, beginDateStr, endDateStr) => {
   return 100 * ((now - begin) / (end - begin));
 }
 
+const GraphedLine = ({values, ...props}) => {
+  const xIncrement = 100 / values.length - 1;
+  return (
+    <path
+      d={
+        `M 0 ${values[0]}` +
+        values.slice(-(values.length - 1)).reduce((acc, value, i) => 
+          acc + `L ${(i + 1) * xIncrement} ${value}`,
+          '',
+        )
+      }
+    />
+  )
+}
+
 const DegreeAxisLine = ({degrees, color, strokeWidth}) => {
   const height = heightByDegrees(degrees);
   return (
