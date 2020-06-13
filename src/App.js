@@ -44,6 +44,9 @@ const App = () => {
   const lgDegreeStrokeWidth = windowHeight * 0.0003;
   const smDegreeStrokeWidth = windowHeight * 0.00008;
 
+  const sunrises = [...new Set(hourlyWeatherData.map(obj => obj.sunrise.value))];
+  const sunsets = [...new Set(hourlyWeatherData.map(obj => obj.sunset.value))];
+  
   console.log(hourlyWeatherData);
   return (
     <div className="App">
