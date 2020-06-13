@@ -39,6 +39,9 @@ const App = () => {
   const hourlyWeatherData = useWeatherData();
   const {windowHeight} = useWindowDimensions();
 
+  const lgDegreeAxes = [0, 50, 100];
+  const smDegreeAxes = [-10, 20, 30, 40, 60, 70, 80, 90, 110];
+
   console.log(hourlyWeatherData);
   return (
     <div className="App">
@@ -55,13 +58,6 @@ const App = () => {
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
-        <line 
-          x1="0" y1="0"
-          x2="100" y2="100"
-          stroke="red"
-          strokeWidth={windowHeight * 0.01}
-          vectorEffect="non-scaling-stroke"
-        />
       </svg>
     </div>
   );
