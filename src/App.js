@@ -61,6 +61,21 @@ const VerticalLine = ({position, ...props}) => (
   />
 )
 
+const InfoOverlay = ({data}) => {
+  const precip = data && data.precipitation_probability && data.precipitation_probability.value;
+  const temp = data && data.temp && data.temp.value;
+  const feelsLike = data && data.feels_like && data.feels_like.value;
+  const cloudCover = data && data.cloud_cover && data.cloud_cover.value;
+  return (
+    <div id="infoOverlay">
+      <p style={{color: 'gray'}}>{`Cloud Cover ${cloudCover}%`}</p>
+      <p style={{color: 'maroon'}}>{`Feels Like ${feelsLike}ºF`}</p>
+      <p style={{color: 'red'}}>{`Temp ${temp}ºF`}</p>
+      <p style={{color: 'cyan'}}>{`Precip ${precip}%`}</p>
+    </div>
+  )
+}
+
 const App = () => {
   const hourlyWeatherData = useWeatherData();
   const {windowHeight, windowWidth} = useWindowDimensions();
@@ -69,7 +84,7 @@ const App = () => {
 
   const handleMouseMove = (event) => {
     const xPct = event.clientX / event.target.ownerSVGElement.clientWidth;
-    const closestDataIndex = Math.floor(xPct * (hourlyWeatherData.length + 1));
+    const closestDataIndex = Math.floor(xPct * (hourlyWeatherData.length - 1));
     if(closestDataIndex !== selectedHourIndex){
       setSelectedHourIndex(closestDataIndex);
     }
@@ -91,6 +106,7 @@ const App = () => {
   console.log(hourlyWeatherData);
   return (
     <div className="App">
+      <InfoOverlay data={hourlyWeatherData[selectedHourIndex]}/>
       {/* Here's our SVG canvas! */}
       <svg
         height="100%"
