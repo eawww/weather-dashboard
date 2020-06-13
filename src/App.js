@@ -73,6 +73,15 @@ const App = () => {
             sunrises.map((sunriseTime, i) => {
               const start = xByTime(sunriseTime, beginTime, endTime);
               const end = xByTime(sunsets[i], beginTime, endTime);
+              return (
+                <rect 
+                  x={start}
+                  y="0"
+                  width={end - start}
+                  height="100"
+                  fill="5553"
+                />
+              )
             })
           }
         </g>
