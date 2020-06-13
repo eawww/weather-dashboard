@@ -193,16 +193,19 @@ const App = () => {
             stroke="#c13288"
             strokeWidth={windowHeight * 0.01}
           />
-          <GraphedLine
-            id="tempLine"
-            values={hourlyWeatherData.map(hr => heightByDegrees(hr.temp.value))}
-            stroke="red"
-            strokeWidth={windowHeight * 0.01}
-          />
+          <mask id="tempLineMask">
+            <GraphedLine
+              id="tempLine"
+              values={hourlyWeatherData.map(hr => heightByDegrees(hr.temp.value))}
+              stroke="white"
+              strokeWidth={windowHeight * 0.01}
+            />
+          </mask>
           <rect
             height="100"
             width="100"
             fill="url(#tempGradient)"
+            mask="url(#tempLineMask)"
           />
         </g>
         <VerticalLine
