@@ -57,18 +57,19 @@ const VerticalLine = ({position, ...props}) => (
   <line
     x1={position} y1="0"
     x2={position} y2="100"
+    {...props}
   />
 )
 
 const App = () => {
   const hourlyWeatherData = useWeatherData();
-  const {windowHeight} = useWindowDimensions();
+  const {windowHeight, windowWidth} = useWindowDimensions();
   const [selectedHourIndex, setSelectedHourIndex] = useState(0);
   console.log(selectedHourIndex)
 
   const handleMouseMove = (event) => {
     const xPct = event.clientX / event.target.ownerSVGElement.clientWidth;
-    const closestDataIndex = Math.floor(xPct * hourlyWeatherData.length);
+    const closestDataIndex = Math.floor(xPct * (hourlyWeatherData.length + 1));
     if(closestDataIndex !== selectedHourIndex){
       setSelectedHourIndex(closestDataIndex);
     }
@@ -174,6 +175,11 @@ const App = () => {
             strokeWidth={windowHeight * 0.01}
           />
         </g>
+        <VerticalLine
+          position={(selectedHourIndex / hourlyWeatherData.length) * 100}
+          stroke="yellow"
+          strokeWidth={windowWidth * 0.0001}
+        />
       </svg>
     </div>
   );
