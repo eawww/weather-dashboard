@@ -57,6 +57,12 @@ const App = () => {
   const hourlyWeatherData = useWeatherData();
   const {windowHeight} = useWindowDimensions();
 
+  const handleMouseMove = (event) => {
+    const xPct = event.clientX / event.target.ownerSVGElement.clientWidth;
+    const closestDataIndex = Math.floor(xPct * hourlyWeatherData.length);
+    console.log(closestDataIndex)
+  }
+
   const beginTime = hourlyWeatherData[0] && hourlyWeatherData[0].observation_time.value;
   const endTime = hourlyWeatherData[0] && hourlyWeatherData[hourlyWeatherData.length - 1].observation_time.value;
 
@@ -79,6 +85,7 @@ const App = () => {
         width="100%"
         className="svgCanvas"
         viewBox="0 0 100 100"
+        onMouseMove={handleMouseMove}
         // the following 2 props are important because they allow us to position things
         // in terms of percentages of height/width of the svg canvas
         // This won't work for every application but I'm doing it here
@@ -86,6 +93,11 @@ const App = () => {
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
+        <rect
+          id="background"
+          height="100" width="100"
+          fill="#000"
+        />
         <g id="dayBlocks">
           {
             sunrises.map((sunriseTime, i) => {
