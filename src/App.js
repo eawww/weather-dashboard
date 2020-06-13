@@ -97,7 +97,7 @@ const App = () => {
                   y="0"
                   width={end - start}
                   height="100"
-                  fill="5553"
+                  fill="#5553"
                 />
               )
             })
@@ -124,6 +124,26 @@ const App = () => {
           }
         </g>
         <g id="graphedLines">
+          <GraphedLine
+            id="precipPercentLine"
+            values={hourlyWeatherData.map(hr => hr.cloud_cover.value)}
+            stroke="#555"
+            strokeWidth={windowHeight * 0.001}
+            fill="#6665"
+          />
+          <GraphedLine
+            id="precipPercentLine"
+            values={hourlyWeatherData.map(hr => 100 - hr.precipitation_probability.value)}
+            stroke="cyan"
+            strokeWidth={windowHeight * 0.005}
+            fill="#0FF6"
+          />
+          <GraphedLine
+            id="feelsLikeLine"
+            values={hourlyWeatherData.map(hr => heightByDegrees(hr.feels_like.value))}
+            stroke="maroon"
+            strokeWidth={windowHeight * 0.01}
+          />
           <GraphedLine
             id="tempLine"
             values={hourlyWeatherData.map(hr => heightByDegrees(hr.temp.value))}
