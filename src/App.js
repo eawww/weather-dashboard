@@ -53,6 +53,13 @@ const DegreeAxisLine = ({degrees, color, strokeWidth}) => {
   )
 }
 
+const VerticalLine = ({position, ...props}) => (
+  <line
+    x1={position} y1="0"
+    x2={position} y2="100"
+  />
+)
+
 const App = () => {
   const hourlyWeatherData = useWeatherData();
   const {windowHeight} = useWindowDimensions();
