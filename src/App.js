@@ -28,6 +28,7 @@ const GraphedLine = ({values, fill, ...props}) => {
   return (
     <path
       fill={fill || '#0000'}
+      vectorEffect="non-scaling-stroke"
       d={
         `M 0 ${values[0]}` +
         values.slice(-(values.length - 1)).reduce((acc, value, i) => 
@@ -127,7 +128,7 @@ const App = () => {
             id="tempLine"
             values={hourlyWeatherData.map(hr => heightByDegrees(hr.temp.value))}
             stroke="red"
-            strokeWidth={windowHeight * 0.001}
+            strokeWidth={windowHeight * 0.01}
           />
         </g>
       </svg>
