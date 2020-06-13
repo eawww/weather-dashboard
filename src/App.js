@@ -39,14 +39,19 @@ const App = () => {
   const hourlyWeatherData = useWeatherData();
   const {windowHeight} = useWindowDimensions();
 
+  const beginTime = hourlyWeatherData[0] && hourlyWeatherData[0].observation_time.value;
+  const endTime = hourlyWeatherData[0] && hourlyWeatherData[hourlyWeatherData.length - 1].observation_time.value;
+
   const lgDegreeAxes = [0, 50, 100];
   const smDegreeAxes = [-10, 10, 20, 30, 40, 60, 70, 80, 90, 110];
   const lgDegreeStrokeWidth = windowHeight * 0.0003;
   const smDegreeStrokeWidth = windowHeight * 0.00008;
 
+  // The data is set up so that we can assume we'll alsways have the same number of
+  // sunrises and sunsets
   const sunrises = [...new Set(hourlyWeatherData.map(obj => obj.sunrise.value))];
   const sunsets = [...new Set(hourlyWeatherData.map(obj => obj.sunset.value))];
-  
+
   console.log(hourlyWeatherData);
   return (
     <div className="App">
@@ -63,6 +68,14 @@ const App = () => {
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
+        <g id="dayBlocks">
+          {
+            sunrises.map((sunriseTime, i) => {
+              const start = xByTime(sunriseTime, beginTime, endTime);
+              const end = xByTime(sunsets[i], beginTime, endTime);
+            })
+          }
+        </g>
         <g id="tempLines">
           {
               smDegreeAxes.map(temp => (
