@@ -37,7 +37,9 @@ const useWeatherData = () => {
       setHourlyWeatherData(data);
     });
   }
-  fetchData();
+  useEffect(() => {
+    fetchData();
+  }, [])
   return hourlyWeatherData;
 }
 
