@@ -23,17 +23,19 @@ const xByTime = (nowDateStr, beginDateStr, endDateStr) => {
   return 100 * ((now - begin) / (end - begin));
 }
 
-const GraphedLine = ({values, ...props}) => {
-  const xIncrement = 100 / values.length - 1;
+const GraphedLine = ({values, fill, ...props}) => {
+  const xIncrement = 100 / (values.length - 1);
   return (
     <path
+      fill={fill || '#0000'}
       d={
         `M 0 ${values[0]}` +
         values.slice(-(values.length - 1)).reduce((acc, value, i) => 
-          acc + `L ${(i + 1) * xIncrement} ${value}`,
+          acc + `L ${(i + 1) * xIncrement} ${value} `,
           '',
         )
       }
+      {...props}
     />
   )
 }
