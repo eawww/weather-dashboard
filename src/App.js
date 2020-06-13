@@ -29,6 +29,7 @@ const GraphedLine = ({values, fill, ...props}) => {
     <path
       fill={fill || '#0000'}
       vectorEffect="non-scaling-stroke"
+      strokeLinejoin="round"
       d={
         `M 0 ${values[0]}` +
         values.slice(-(values.length - 1)).reduce((acc, value, i) => 
@@ -62,14 +63,16 @@ const VerticalLine = ({position, ...props}) => (
 )
 
 const InfoOverlay = ({data}) => {
+  const now = new Date(data &&  data.observation_time && data.observation_time.value)
   const precip = data && data.precipitation_probability && data.precipitation_probability.value;
   const temp = data && data.temp && data.temp.value;
   const feelsLike = data && data.feels_like && data.feels_like.value;
   const cloudCover = data && data.cloud_cover && data.cloud_cover.value;
   return (
     <div id="infoOverlay">
+      <p style={{color: 'yellow'}}>{now.toString()}</p>
       <p style={{color: 'gray'}}>{`Cloud Cover ${cloudCover}%`}</p>
-      <p style={{color: 'maroon'}}>{`Feels Like ${feelsLike}ºF`}</p>
+      <p style={{color: '#c13288'}}>{`Feels Like ${feelsLike}ºF`}</p>
       <p style={{color: 'red'}}>{`Temp ${temp}ºF`}</p>
       <p style={{color: 'cyan'}}>{`Precip ${precip}%`}</p>
     </div>
@@ -80,7 +83,6 @@ const App = () => {
   const hourlyWeatherData = useWeatherData();
   const {windowHeight, windowWidth} = useWindowDimensions();
   const [selectedHourIndex, setSelectedHourIndex] = useState(0);
-  console.log(selectedHourIndex)
 
   const handleMouseMove = (event) => {
     const xPct = event.clientX / event.target.ownerSVGElement.clientWidth;
@@ -102,8 +104,6 @@ const App = () => {
   // sunrises and sunsets
   const sunrises = [...new Set(hourlyWeatherData.map(obj => obj.sunrise.value))];
   const sunsets = [...new Set(hourlyWeatherData.map(obj => obj.sunset.value))];
-
-  console.log(hourlyWeatherData);
   return (
     <div className="App">
       <InfoOverlay data={hourlyWeatherData[selectedHourIndex]}/>
@@ -181,7 +181,7 @@ const App = () => {
           <GraphedLine
             id="feelsLikeLine"
             values={hourlyWeatherData.map(hr => heightByDegrees(hr.feels_like.value))}
-            stroke="maroon"
+            stroke="#c13288"
             strokeWidth={windowHeight * 0.01}
           />
           <GraphedLine
