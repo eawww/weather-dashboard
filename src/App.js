@@ -40,7 +40,9 @@ const App = () => {
   const {windowHeight} = useWindowDimensions();
 
   const lgDegreeAxes = [0, 50, 100];
-  const smDegreeAxes = [-10, 20, 30, 40, 60, 70, 80, 90, 110];
+  const smDegreeAxes = [-10, 10, 20, 30, 40, 60, 70, 80, 90, 110];
+  const lgDegreeStrokeWidth = windowHeight * 0.0003;
+  const smDegreeStrokeWidth = windowHeight * 0.00008;
 
   console.log(hourlyWeatherData);
   return (
@@ -58,6 +60,26 @@ const App = () => {
         viewBox="0 0 100 100"
         preserveAspectRatio="none"
       >
+        <g id="tempLines">
+          {
+              smDegreeAxes.map(temp => (
+                <DegreeAxisLine
+                  degrees={temp}
+                  color="#6669"
+                  strokeWidth={smDegreeStrokeWidth}
+                />
+              ))
+          }
+          {
+              lgDegreeAxes.map(temp => (
+                <DegreeAxisLine
+                  degrees={temp}
+                  color="#6669"
+                  strokeWidth={lgDegreeStrokeWidth}
+                />
+              ))
+          }
+        </g>
       </svg>
     </div>
   );
