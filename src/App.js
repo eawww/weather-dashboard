@@ -122,6 +122,14 @@ const App = () => {
               ))
           }
         </g>
+        <g id="graphedLines">
+          <GraphedLine
+            id="tempLine"
+            values={hourlyWeatherData.map(hr => heightByDegrees(hr.temp.value))}
+            stroke="red"
+            strokeWidth={windowHeight * 0.001}
+          />
+        </g>
       </svg>
     </div>
   );
